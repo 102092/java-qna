@@ -13,13 +13,11 @@ public class PageUtil {
   private int current;
   private int next;
   private int max;
-  private int index;
 
 
-  public PageUtil(int current, int index, int totalPages) {
+  public PageUtil(int current, int totalPages) {
     this.previous = 0;
     this.current = current;
-    this.index = index;
     this.max = totalPages;
     this.pages = createList();
     this.next = createNext();
@@ -44,7 +42,7 @@ public class PageUtil {
       int last = start + 4;
 
       if (last > max) {
-        last = max;
+        last = max - 1;
       }
 
       for (int num = start; num <= last; num++) {
@@ -60,10 +58,9 @@ public class PageUtil {
     int size = pages.size() - 1;
     int next = pages.get(size);
 
-    if (next == max) {
+    if (next == max - 1) {
       return 0;
     }
-
     return next + 1;
   }
 

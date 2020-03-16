@@ -3,12 +3,12 @@ package com.codessquad.qna.controller;
 import com.codessquad.qna.domain.Question;
 import com.codessquad.qna.repository.QnaRepository;
 import com.codessquad.qna.web.PageUtil;
-import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,19 +24,19 @@ public class PageController {
   private QnaRepository qnaRepository;
 
   @GetMapping(value = "/")
-  public String index(Model model, Optional<Integer> page) {
-    int pageNumber = page.isPresent() ? page.get() - 1 : 0;
+  public String index(Model model, Pageable pageable) {
+    int pageNumber = pageable.getPageNumber();
+    log.debug("pageNumber : {} ", pageNumber);
 
     Page<Question> questions = qnaRepository
         .findAll(PageRequest.of(pageNumber, PAGE_SIZE, Direction.DESC, "id"));
 
-    int current = questions.getNumber() + 1;
+    int current = questions.getNumber();
     int totalPages = questions.getTotalPages();
-    int index = questions.getNumber();
 
     model.addAttribute("questions", questions.getContent());
     model.addAttribute("pageUtil",
-        new PageUtil(current, index, totalPages));
+        new PageUtil(current, totalPages));
     return "index";
   }
 

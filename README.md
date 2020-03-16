@@ -504,7 +504,7 @@
     - 메이븐 빌드를 통해 생성된 모든 산출물을 삭제.
     - 즉 target 디렉토리 삭제
   - site
-      
+    
       - 프로젝트에 대한 문서 사이트를 생성.
 
 
@@ -535,3 +535,12 @@
 
 
 
+> 리뷰
+
+##### command-line-runner
+
+- https://www.daleseo.com/spring-boot-runners/
+
+
+
+##### sql 생성 프로그램
